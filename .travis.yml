@@ -1,0 +1,63 @@
+sudo: required
+dist: trusty
+
+language: node_js
+
+node_js:
+  - "8"
+
+script:
+  - npm run lint
+  - npm run build
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+deploy:
+  - provider: s3
+    access_key_id: $PRODUCTION_AWS_ACCESS_KEY
+    secret_access_key: $PRODUCTION_AWS_SECRET
+    local_dir: build
+    bucket: "ammiranda-travis-prod"
+    skip_cleanup: true
+    region: "us-west-2"
+    cache_control: "no-cache"
+    on:
+      branch: master
+
+  - provider: s3
+    access_key_id: $DEVELOPMENT_AWS_ACCESS_KEY
+    secret_access_key: $DEVELOPMENT_AWS_SECRET
+    local_dir: build
+    bucket: "ammiranda-travis-stage"
+    skip_cleanup: true
+    region: "us-west-2"
+    cache_control: "no-cache"
+    on:
+      branch: stage
+
+  - provider: s3
+    access_key_id: $DEVELOPMENT_AWS_ACCESS_KEY
+    secret_access_key: $DEVELOPMENT_AWS_SECRET
+    local_dir: build
+    bucket: "ammiranda-travis-dev"
+    skip_cleanup: true
+    region: "us-west-2"
+    cache_control: "no-cache"
+    on:
+      branch: develop
+
+  - provider: s3
+    access_key_id: $DEVELOPMENT_AWS_ACCESS_KEY
+    secret_access_key: $DEVELOPMENT_AWS_SECRET
+    local_dir: build
+    upload-dir: $TRAVIS_BRANCH
+    bucket: "ammiranda-travis-feature-builds"
+    skip_cleanup: true
+    region: "us-west-2"
+    cache_control: "no-cache"
+    branches:
+      only:
+      - /(feature\/|bug\/|fix\/)ORBIS-.*/
