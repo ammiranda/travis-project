@@ -52,7 +52,7 @@ deploy:
     access_key_id: $DEVELOPMENT_AWS_ACCESS_KEY
     secret_access_key: $DEVELOPMENT_AWS_SECRET
     local_dir: build
-    upload-dir: testfolder
+    upload-dir: testfolder2
     bucket: "ammiranda-travis-feature-builds"
     skip_cleanup: true
     region: "us-west-2"
