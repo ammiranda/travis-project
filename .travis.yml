@@ -60,4 +60,4 @@ deploy:
     cache_control: "no-cache"
     branches:
       only:
-      - /(feature\/|bug\/|fix\/)ORBIS-.*/
+      - /(feature\/|bug\/|fix\/)PROJECT-.*/
