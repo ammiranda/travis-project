@@ -57,6 +57,6 @@ deploy:
     skip_cleanup: true
     region: "us-west-2"
     cache_control: "no-cache"
-    # branches:
-    #   only:
-    #   - /(feature\/|bug\/|fix\/)PROJECT-.*/
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^feature\/PROJECT-.*$
